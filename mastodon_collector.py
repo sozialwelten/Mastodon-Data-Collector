@@ -121,8 +121,8 @@ class MastodonDataCollector:
 
         posts = self._get_paginated_data(
             "timelines/public",
-            params={'limit': 40},  # Max per Request
-            max_pages=limit // 40
+            params={'limit': 40},  # Max per Request (API-Limit)
+            max_pages=(limit // 40) + 2  # +2 für Sicherheit, da manche Requests weniger zurückgeben
         )
 
         if posts:
@@ -220,7 +220,7 @@ class MastodonDataCollector:
             posts = self._get_paginated_data(
                 f"timelines/tag/{hashtag}",
                 params={'limit': 40},
-                max_pages=posts_per_tag // 40
+                max_pages=(posts_per_tag // 40) + 2  # +2 für Sicherheit
             )
 
             for post in posts:
@@ -274,7 +274,7 @@ class MastodonDataCollector:
         posts = self._get_paginated_data(
             "timelines/public",
             params={'limit': 40, 'local': 'true'},
-            max_pages=limit // 40
+            max_pages=(limit // 40) + 2  # +2 für Sicherheit
         )
 
         if posts:
@@ -363,9 +363,10 @@ TOKEN ERSTELLEN (falls benötigt):
             'python', 'datascience', 'tech',
             'powerbi', 'looker', 'tableau', 'analytics', 'dataviz', 'dataanalysis',
             'fedihire', 'getfedihired', 'fedijobs', 'fedihired', 'fedihire_de',
-            'jobsuche', 'jobsearch', 'jobalert', 'hiring'
+            'jobsuche', 'jobsearch', 'jobalert', 'hiring',
+            '39C3', '39c3', 'ccc', 'congress', 'chaoswest'
         ],
-        help='Hashtags zum Sammeln (Standard: Data Analytics + Job-Hashtags)'
+        help='Hashtags zum Sammeln (Standard: Data Analytics + Job-Hashtags + CCC)'
     )
     parser.add_argument(
         '--posts-per-source',
