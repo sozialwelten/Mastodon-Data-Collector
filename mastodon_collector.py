@@ -29,8 +29,9 @@ class MastodonDataCollector:
         if access_token:
             self.headers['Authorization'] = f'Bearer {access_token}'
 
-        # Erstelle Datenverzeichnis
-        self.data_dir = "mastodon_data"
+        # Erstelle Datenverzeichnis (absoluter Pfad zum Skript-Verzeichnis)
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        self.data_dir = os.path.join(script_dir, "mastodon_data")
         os.makedirs(self.data_dir, exist_ok=True)
 
         # Timestamp für diese Sammlung
@@ -364,7 +365,7 @@ TOKEN ERSTELLEN (falls benötigt):
             'powerbi', 'looker', 'tableau', 'analytics', 'dataviz', 'dataanalysis',
             'fedihire', 'getfedihired', 'fedijobs', 'fedihired', 'fedihire_de',
             'jobsuche', 'jobsearch', 'jobalert', 'hiring',
-            '39C3', '39c3', 'ccc', 'congress', 'chaoswest'
+            '39c3', 'ccc', 'congress', 'chaoswest'
         ],
         help='Hashtags zum Sammeln (Standard: Data Analytics + Job-Hashtags + CCC)'
     )
